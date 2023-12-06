@@ -30,8 +30,6 @@ np.random.seed(2)
 num_cpus = multiprocessing.cpu_count()
 #change to where ever you have data.
 raw_data_dir = './data/'
-raw_data_dir =  '/scratch/gpfs/dp4846/shape_stats_data/data/'
-
 Y = np.load(raw_data_dir + 'model2_activations.npy')
 M, D = Y.shape
 neur_inds = np.random.choice(D, 50, replace=False)
