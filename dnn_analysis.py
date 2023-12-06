@@ -81,7 +81,7 @@ plt.ylim(0, 0.5)
 plt.xlabel('# stimuli (M)')
 plt.ylabel('Similarity')
 plt.title('Dimensionality=' + str(D*2))
-plt.savefig('bias_M_rel.pdf')
+plt.savefig('bias_M_rel.pdf', bbox_inches='tight')
 #%%
 #raw responses which we will sub sample
 Y = np.load(raw_data_dir + 'model2_activations.npy')

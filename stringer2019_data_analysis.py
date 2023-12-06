@@ -5,8 +5,8 @@ import os
 import xarray as xr
 import src
 np.random.seed(2)
+#change to wherever you have the data
 raw_data_dir = './data/'
-raw_data_dir = '/scratch/gpfs/dp4846/shape_stats_data/data/'
 fns = [fn for fn in os.listdir(raw_data_dir) if 'natimg2800_' in fn ]
 n_rec = len(fns)
 # for holding onto eigenspectra raw results
