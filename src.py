@@ -54,7 +54,7 @@ def estimate_eigenmoments(X, Y, num_moments, comb_M_2ps=None):
 
     return eigmoms
 
-def bootstrap_eigmoms_cov(X, Y, num_moments,num_bootstraps=50):
+def bootstrap_eigmoms_cov(X, Y, num_moments,num_bootstraps=50, comb_M_2ps=None):
     """
     Compute covariance of eigenmoments using bootstrapping.
 
@@ -290,8 +290,8 @@ def full_signal_similarity_metric_estimator(X, Y, num_moments=10, alpha=1,
         Naive estimator (just uses nuclear norm of sample cross-covariance).
     """
 
-    _, M, _ = X.shape[1] #TODO no need to pass whole variables, just pass M and N
-    _, M, _ = Y.shape[1]
+    M = X.shape[1] #TODO no need to pass whole variables, just pass M and N
+    M = Y.shape[1]
     signal_cov_est = (X[0].T @ Y[1] + X[1].T @ Y[0])/(2*M)#TODO extend to more than two repeats
     s1_est = (np.linalg.svd(signal_cov_est)[1][0])#TODO no need to do this twice, could just scale estimate
     X /= s1_est**0.5

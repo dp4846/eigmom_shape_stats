@@ -1,4 +1,3 @@
-import src
 import numpy as np
 import matplotlib.pyplot as plt
 import src
@@ -30,7 +29,8 @@ def run_sim(X, Y, Ms, num_moments, alpha, num_bootstraps, remove_constant, bias_
 np.random.seed(2)
 num_cpus = multiprocessing.cpu_count()
 #change to where ever you have data.
-raw_data_dir =  '/scratch/gpfs/dp4846/shape_stats_data/'
+raw_data_dir = './data/'
+raw_data_dir =  '/scratch/gpfs/dp4846/shape_stats_data/data/'
 
 Y = np.load(raw_data_dir + 'model2_activations.npy')
 M, D = Y.shape
@@ -83,10 +83,9 @@ plt.ylim(0, 0.5)
 plt.xlabel('# stimuli (M)')
 plt.ylabel('Similarity')
 plt.title('Dimensionality=' + str(D*2))
+plt.savefig('bias_M_rel.pdf')
 #%%
 #raw responses which we will sub sample
-np.random.seed(2)
-raw_data_dir =  '/scratch/gpfs/dp4846/shape_stats_data/'
 Y = np.load(raw_data_dir + 'model2_activations.npy')
 M, D = Y.shape
 neur_inds = np.random.choice(2048, 2048, replace=False)
@@ -144,15 +143,12 @@ for i in tqdm(range(1,501)):
 
 plt.figure(figsize=(3,3))
 res = np.array(results)
-res.shape
-print(res[0,:].round(2))
 bias_plug_in = res[:, 1] - res[:, -1]
 ed = res[:, -2]
 plt.scatter(ed, bias_plug_in, s=1, c='k')
 plt.xlabel('Effective dimensionality')
 plt.ylabel('Plug-in estimator bias')
 plt.ylim(0,0.3)
-#plt.xlim(0,3)
 plt.title('r=' + str(np.corrcoef(ed, bias_plug_in)[0,1].round(2)))
 plt.tight_layout()
-plt.savefig('bias_dim_rel.pdf')
+plt.savefig('bias_dim_rel.pdf', bbox_inches='tight')

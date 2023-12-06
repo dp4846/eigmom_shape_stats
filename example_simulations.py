@@ -258,7 +258,7 @@ M_cisim = 200
 N_cisim = 100
 n_sims = 5000
 true_shape_metric = 0.2
-X, Y, singular_values, lam_x, lam_y, cov = sim_data(N_cisim, N_cisim, true_shape_metric, pl_slope, M_cisim, n_sims)
+X, Y, singular_values, lam_x, lam_y, cov = src.sim_data(N_cisim, N_cisim, true_shape_metric, pl_slope, M_cisim, n_sims)
 true_denom = (np.sum(lam_x)*np.sum(lam_y))**0.5
 est_eigmoms = np.zeros((n_sims, num_moments+1))
 for i in tqdm(range(n_sims)):

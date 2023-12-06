@@ -5,9 +5,9 @@ import os
 import xarray as xr
 import src
 np.random.seed(2)
-raw_data_dir =  './data/'
-fns = [fn for fn in os.listdir(raw_data_dir) if 'natimg2800_' in fn 
-            and not 'npy' in fn and 'ms' in fn and '.nc' in fn and '0_M' in fn]
+raw_data_dir = './data/'
+raw_data_dir = '/scratch/gpfs/dp4846/shape_stats_data/data/'
+fns = [fn for fn in os.listdir(raw_data_dir) if 'natimg2800_' in fn ]
 n_rec = len(fns)
 # for holding onto eigenspectra raw results
 fn_nms = [fns[rec].split('/')[-1].split('.')[0] for rec in range(n_rec)]
@@ -45,8 +45,8 @@ for i in range(len(das)):
     #get the snr of each neuron
     noise_var = R.var(0).mean(0)
     sig_var = R.mean(0).var(0)
-    snr = sig_var/(noise_var)
-    snr[np.isnan(snr)] = 0
+    snr = sig_var/noise_var
+    snr[np.isnan(snr)] = 0#noise var will sometimes be 0 giving nans
     #sort neurons by snr
     neur_ind = np.random.choice(n_neur, size=N*2, replace=False)
     neur_ind = np.argsort(snr)[::-1][:N*2]
@@ -73,7 +73,7 @@ for i in range(len(das)):
                 Y = R[:, stim_ind_x][..., neur_ind_y]
 
             est, var, bias, naive_est = src.full_signal_similarity_metric_estimator(X, Y, num_moments=10, alpha=1., 
-                                                        num_bootstraps=500, remove_constant=True,
+                                                        num_bootstraps=50, remove_constant=True,
                                                                         bias_frac=1.)
             da_res.loc[i, sim_type, sim] = np.array([est, var, bias, naive_est])
 #%% now estimate shape metric across all stimuli

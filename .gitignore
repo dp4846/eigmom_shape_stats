@@ -7,3 +7,5 @@ data/ms_natimg2800_M170717_MP033_2017-08-20.nc
 data/ms_natimg2800_M170717_MP034_2017-09-11.nc
 data/res_unshuffled.npy
 .DS_Store
+data/model1_activations.npy
+data/model2_activations.npy
